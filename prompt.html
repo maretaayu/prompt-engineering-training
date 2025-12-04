@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Kamus Prompt - Ruangguru Engineering Academy</title>
+    <style>
+      :root {
+        font-family: "Inter", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont,
+          "Helvetica Neue", sans-serif;
+        color-scheme: light;
+        --bg: #f4f6fb;
+        --card: #ffffff;
+        --border: #e3e7f2;
+        --muted: #647089;
+        --text: #161c2d;
+        --accent: #4643ff;
+        --accent-soft: rgba(70, 67, 255, 0.12);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+      }
+
+      header {
+        padding: 2.5rem 1.5rem 0;
+      }
+
+      h1 {
+        margin: 0 0 0.5rem;
+        font-size: clamp(2.2rem, 6vw, 3rem);
+      }
+
+      p {
+        margin: 0;
+      }
+
+      main {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1.5rem 3rem;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+      }
+
+      .utility-bar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.5rem;
+        background: var(--card);
+        border-radius: 1.25rem;
+        border: 1px solid var(--border);
+        box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
+        margin-top: 1.5rem;
+      }
+
+      .search-box {
+        flex: 1;
+        min-width: 240px;
+        position: relative;
+      }
+
+      .search-box input {
+        width: 100%;
+        padding: 0.9rem 1rem 0.9rem 2.6rem;
+        border-radius: 0.9rem;
+        border: 1px solid var(--border);
+        font-size: 1rem;
+        background: #f9faff;
+      }
+
+      .search-box::before {
+        content: "🔎";
+        position: absolute;
+        left: 0.9rem;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 1rem;
+      }
+
+      .stats {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        font-size: 0.95rem;
+        color: var(--muted);
+      }
+
+      .cases-table {
+        width: 100%;
+        border-collapse: collapse;
+        background: var(--card);
+        border-radius: 1.5rem;
+        overflow: hidden;
+        box-shadow: 0 30px 60px rgba(15, 23, 42, 0.08);
+      }
+
+      thead {
+        background: #eef0ff;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        font-size: 0.85rem;
+      }
+
+      th,
+      td {
+        padding: 1.1rem;
+        border-bottom: 1px solid var(--border);
+        vertical-align: top;
+      }
+
+      th:first-child,
+      td:first-child {
+        width: 200px;
+      }
+
+      tbody tr:last-child td {
+        border-bottom: none;
+      }
+
+      .case-title {
+        margin: 0 0 0.4rem;
+        font-size: 1.05rem;
+      }
+
+      .badge {
+        display: inline-flex;
+        padding: 0.15rem 0.65rem;
+        border-radius: 999px;
+        background: var(--accent-soft);
+        color: var(--accent);
+        font-size: 0.75rem;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+      }
+
+      .prompt-block {
+        font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+        font-size: 0.85rem;
+        background: #f7f8ff;
+        border: 1px dashed var(--border);
+        border-radius: 0.8rem;
+        padding: 0.9rem;
+        margin: 0.75rem 0 0;
+        white-space: pre-line;
+      }
+
+      .thumb {
+        width: 180px;
+        height: 120px;
+        border-radius: 1rem;
+        background-size: cover;
+        background-position: center;
+        border: 1px solid var(--border);
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25);
+      }
+
+      .thumb-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+        color: var(--muted);
+        font-size: 0.85rem;
+      }
+
+      .empty-state {
+        padding: 2rem;
+        text-align: center;
+        color: var(--muted);
+      }
+
+      @media (max-width: 800px) {
+        th,
+        td {
+          display: block;
+          width: 100%;
+        }
+
+        th:first-child,
+        td:first-child,
+        .thumb {
+          width: 100%;
+        }
+
+        .thumb {
+          height: 180px;
+        }
+
+        thead tr {
+          display: none;
+        }
+
+        tbody tr {
+          border-bottom: 1px solid var(--border);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <main>
+        <h1>Kamus Prompt</h1>
+        <p>Arsip studi kasus prompt untuk sesi pelatihan Ruangguru Engineering Academy.</p>
+      </main>
+    </header>
+    <main>
+      <section class="utility-bar">
+        <div class="search-box">
+          <input
+            type="search"
+            id="search"
+            placeholder="Cari studi kasus, tool, atau kata kunci..."
+            aria-label="Cari prompt"
+          />
+        </div>
+        <div class="stats">
+          <span id="total">0 studi kasus</span>
+          <span id="visible">0 ditampilkan</span>
+        </div>
+      </section>
+
+      <section class="table-wrapper">
+        <table class="cases-table" aria-describedby="total visible">
+          <thead>
+            <tr>
+              <th>Studi Kasus</th>
+              <th>Detail Prompt</th>
+              <th>Output & Media</th>
+            </tr>
+          </thead>
+          <tbody id="table-body"></tbody>
+        </table>
+        <div id="empty" class="empty-state" hidden>Belum ada studi kasus yang cocok.</div>
+      </section>
+    </main>
+
+    <script>
+      const cases = [
+        {
+          title: "Bikin Komik Skenario Customer Service",
+          badge: "Visual + Narasi",
+          summary:
+            "Membuat panel komik berisi percakapan customer service untuk penjelasan fitur baru.",
+          prompt:
+            "Buat 4 panel komik bergaya pop art tentang agen CS Ruangguru yang membantu pengguna mencoba fitur AI baru. Panel harus memuat narasi singkat (maks 25 kata per panel) dan ekspresi karakter jelas.",
+          output:
+            "Dapatkan storyboard 4 panel lengkap dengan teks dialog. Gunakan hasilnya sebagai acuan produksi komik di Canva atau Midjourney.",
+          image:
+            "linear-gradient(135deg, #f8b4ff, #7b6dff)",
+          tags: ["komik", "visual", "narasi", "customer"]
+        },
+        {
+          title: "Ringkasan Pitch Deck 5 Slide",
+          badge: "Presentasi",
+          summary:
+            "Merangkum studi kasus menjadi template deck 5 slide siap presentasi.",
+          prompt:
+            "Ringkas studi kasus berikut dalam format 5 slide: (1) Hook, (2) Problem, (3) Solusi AI, (4) Dampak, (5) CTA. Gunakan gaya bahasa confident namun ramah.",
+          output:
+            "Outline lengkap tiap slide + poin penting. Bisa langsung disalin ke Google Slides.",
+          image:
+            "linear-gradient(135deg, #9be7ff, #6979f8)",
+          tags: ["presentasi", "slide", "ringkasan"]
+        },
+        {
+          title: "Generator Persona Alumni",
+          badge: "Research",
+          summary:
+            "Menghasilkan persona alumni untuk riset kebutuhan konten.",
+          prompt:
+            "Bertindak sebagai researcher. Berdasarkan data survei, buat 3 persona alumni (nama, peran, tujuan karier, kebutuhan konten). Sajikan dalam JSON untuk mudah dipakai ulang.",
+          output: "JSON 3 persona yang siap pakai untuk workshop konten.",
+          image:
+            "linear-gradient(135deg, #ffd7a9, #ff8f70)",
+          tags: ["persona", "riset", "json"]
+        }
+      ];
+
+      const bodyEl = document.querySelector("#table-body");
+      const totalEl = document.querySelector("#total");
+      const visibleEl = document.querySelector("#visible");
+      const emptyEl = document.querySelector("#empty");
+      const searchInput = document.querySelector("#search");
+
+      const renderRow = (item) => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>
+            <h3 class="case-title">${item.title}</h3>
+            <span class="badge">${item.badge}</span>
+          </td>
+          <td>
+            <p>${item.summary}</p>
+            <div class="prompt-block">${item.prompt}</div>
+          </td>
+          <td>
+            <div class="thumb-wrapper">
+              <div class="thumb" style="background:${item.image}"></div>
+              <strong>Output</strong>
+              <span>${item.output}</span>
+            </div>
+          </td>`;
+        return tr;
+      };
+
+      const renderTable = (list) => {
+        bodyEl.innerHTML = "";
+        list.forEach((item) => bodyEl.appendChild(renderRow(item)));
+        emptyEl.hidden = list.length !== 0;
+        visibleEl.textContent = `${list.length} ditampilkan`;
+      };
+
+      const filterCases = (term) => {
+        const q = term.trim().toLowerCase();
+        if (!q) return cases;
+        return cases.filter((item) => {
+          return (
+            item.title.toLowerCase().includes(q) ||
+            item.summary.toLowerCase().includes(q) ||
+            item.prompt.toLowerCase().includes(q) ||
+            item.tags.some((tag) => tag.includes(q))
+          );
+        });
+      };
+
+      totalEl.textContent = `${cases.length} studi kasus`;
+      renderTable(cases);
+
+      searchInput.addEventListener("input", (e) => {
+        const filtered = filterCases(e.target.value);
+        renderTable(filtered);
+      });
+    </script>
+  </body>
+</html>
