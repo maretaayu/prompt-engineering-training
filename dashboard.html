@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Brain Academy: Dashboard Kinerja Cabang</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Chart.js for visualization (Updated to use 4.x for better Radar chart support) -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+    <style>
+      /* Custom styles for the traffic light system */
+      .status-green {
+        background-color: #d1fae5; /* Green 100 */
+        color: #065f46; /* Green 800 */
+        border-left: 5px solid #10b981; /* Green 500 */
+      }
+      .status-yellow {
+        background-color: #fffbeb; /* Yellow 100 */
+        color: #92400e; /* Yellow 800 */
+        border-left: 5px solid #f59e0b; /* Yellow 500 */
+      }
+      .status-red {
+        background-color: #fee2e2; /* Red 100 */
+        color: #991b1b; /* Red 800 */
+        border-left: 5px solid #ef4444; /* Red 500 */
+      }
+      .status-icon {
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        margin-right: 8px;
+      }
+      .icon-green {
+        background-color: #10b981;
+      }
+      .icon-yellow {
+        background-color: #f59e0b;
+      }
+      .icon-red {
+        background-color: #ef4444;
+      }
+
+      /* Style for interactive cards */
+      .interactive-card {
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      .interactive-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+          0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      }
+      .interactive-card.active {
+        box-shadow: 0 0 0 3px #3b82f6; /* Blue ring for active filter */
+        opacity: 0.9;
+      }
+      /* Ensure canvas is responsive */
+      .chart-container {
+        position: relative;
+        height: 40vh; /* Adjust height as needed for larger screens */
+        width: 100%;
+        min-height: 250px; /* Minimum height for charts */
+      }
+      /* Mobile adjustment for chart height */
+      @media (max-width: 768px) {
+        .chart-container {
+          height: 35vh;
+        }
+      }
+    </style>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body class="bg-gray-50 font-sans p-6 md:p-10">
+    <div id="app" class="max-w-7xl mx-auto">
+      <header class="mb-8">
+        <h1 class="text-4xl font-extrabold text-blue-800 tracking-tight">
+          Dashboard Kinerja Brain Academy
+        </h1>
+        <p class="text-gray-500 mt-2">
+          Evaluasi Kinerja Cabang Berdasarkan Keuangan & Performa Instruktur
+        </p>
+      </header>
+
+      <!-- Global KPI Summary -->
+      <div id="kpi-summary" class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-10">
+        <!-- Cards will be injected here by JS -->
+      </div>
+
+      <!-- Charts Section -->
+      <section class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-10">
+        <!-- Instructor Performance Radar Chart (NEW FOCUS) -->
+        <div class="lg:col-span-2 bg-white p-6 rounded-xl shadow-lg">
+          <h2 class="text-xl font-bold text-gray-700 mb-4">
+            Perbandingan Kualitas Instruktur (Student Satisfaction Proxy)
+          </h2>
+          <div class="chart-container">
+            <canvas id="instructorRadarChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Traffic Light Doughnut Chart -->
+        <div
+          class="bg-white p-6 rounded-xl shadow-lg flex flex-col justify-between"
+        >
+          <div>
+            <h2 class="text-xl font-bold text-gray-700 mb-4">
+              Proporsi Status Keuangan
+            </h2>
+            <div class="chart-container h-64 w-full">
+              <canvas id="trafficLightDoughnut"></canvas>
+            </div>
+          </div>
+          <!-- Legend for Doughnut Chart -->
+          <div id="doughnut-legend" class="mt-4 text-sm space-y-1">
+            <div class="flex items-center">
+              <span class="status-icon icon-green"></span
+              ><span>Green (Revenue Optimal)</span>
+            </div>
+            <div class="flex items-center">
+              <span class="status-icon icon-yellow"></span
+              ><span>Yellow (Revenue Warning)</span>
+            </div>
+            <div class="flex items-center">
+              <span class="status-icon icon-red"></span
+              ><span>Red (Revenue Kritis)</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Revenue Bar Chart Section (Moved here to maintain space) -->
+      <section class="mb-10 p-6 bg-white rounded-xl shadow-lg">
+        <h2 class="text-2xl font-bold text-gray-700 mb-4">
+          Perbandingan Revenue Cabang vs Rata-rata
+        </h2>
+        <div class="chart-container" style="height: 30vh">
+          <canvas id="revenueBarChart"></canvas>
+        </div>
+      </section>
+
+      <!-- Traffic Light Filter Section -->
+      <section class="mb-10 p-6 bg-white rounded-xl shadow-lg">
+        <h2 class="text-2xl font-bold text-gray-700 mb-4">
+          Traffic Light System (Filter Kinerja)
+        </h2>
+        <div
+          id="traffic-light-filters"
+          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+        >
+          <!-- Filter Cards will be injected here by JS -->
+        </div>
+        <button
+          onclick="resetFilters()"
+          class="mt-4 px-4 py-2 bg-gray-200 text-gray-700 font-semibold rounded-lg hover:bg-gray-300 transition duration-150"
+        >
+          Tampilkan Semua Cabang
+        </button>
+      </section>
+
+      <!-- Branch Ranking Table -->
+      <section class="bg-white p-6 rounded-xl shadow-lg">
+        <h2 class="text-2xl font-bold text-gray-700 mb-4">
+          Ranking & Detail Performa Cabang
+        </h2>
+        <div class="overflow-x-auto">
+          <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-blue-50">
+              <tr>
+                <th
+                  class="px-6 py-3 text-left text-xs font-medium text-blue-600 uppercase tracking-wider"
+                >
+                  Rank Rev.
+                </th>
+                <th
+                  class="px-6 py-3 text-left text-xs font-medium text-blue-600 uppercase tracking-wider"
+                >
+                  Cabang
+                </th>
+                <th
+                  class="px-6 py-3 text-left text-xs font-medium text-blue-600 uppercase tracking-wider"
+                >
+                  Total Revenue (IDR)
+                </th>
+                <th
+                  class="px-6 py-3 text-left text-xs font-medium text-blue-600 uppercase tracking-wider"
+                >
+                  Total Enrollment
+                </th>
+                <th
+                  class="px-6 py-3 text-left text-xs font-medium text-blue-600 uppercase tracking-wider"
+                >
+                  Avg Inst. Score
+                </th>
+                <th
+                  class="px-6 py-3 text-left text-xs font-medium text-blue-600 uppercase tracking-wider"
+                >
+                  Status Keuangan
+                </th>
+                <th
+                  class="px-6 py-3 text-left text-xs font-medium text-blue-600 uppercase tracking-wider"
+                >
+                  Status Performa
+                </th>
+              </tr>
+            </thead>
+            <tbody
+              id="branch-ranking-body"
+              class="bg-white divide-y divide-gray-200"
+            >
+              <!-- Table rows will be injected here by JS -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+
+    <script>
+      // --- DATA INJECTION WITH DETAILED INSTRUCTOR METRICS ---
+      // Data ini mencakup 4 metrik performa instruktur (Avg_Penjelasan, Avg_Penguasaan, Avg_Kualitas, Avg_Interaktivitas)
+      // yang merupakan hasil agregasi dari file CSV yang diunggah.
+      const dashboardData = [
+        {
+          Revenue_Rank: 1,
+          branch: "Makassar",
+          Total_Revenue: 88586299,
+          Total_Enrollments: 29,
+          Avg_Instructor_Score: 4.38,
+          Total_Sessions: 31,
+          Revenue_Status: "Green",
+          Performance_Status: "Yellow",
+          Avg_Penjelasan: 4.2,
+          Avg_Penguasaan: 4.48,
+          Avg_Kualitas: 4.48,
+          Avg_Interaktivitas: 4.3,
+        },
+        {
+          Revenue_Rank: 2,
+          branch: "Jakarta",
+          Total_Revenue: 87734004,
+          Total_Enrollments: 28,
+          Avg_Instructor_Score: 4.3,
+          Total_Sessions: 31,
+          Revenue_Status: "Green",
+          Performance_Status: "Yellow",
+          Avg_Penjelasan: 4.42,
+          Avg_Penguasaan: 4.44,
+          Avg_Kualitas: 4.38,
+          Avg_Interaktivitas: 4.15,
+        },
+        {
+          Revenue_Rank: 3,
+          branch: "Medan",
+          Total_Revenue: 83744178,
+          Total_Enrollments: 27,
+          Avg_Instructor_Score: 4.3,
+          Total_Sessions: 31,
+          Revenue_Status: "Green",
+          Performance_Status: "Yellow",
+          Avg_Penjelasan: 4.36,
+          Avg_Penguasaan: 4.54,
+          Avg_Kualitas: 4.52,
+          Avg_Interaktivitas: 4.04,
+        },
+        {
+          Revenue_Rank: 4,
+          branch: "Surakarta",
+          Total_Revenue: 83477675,
+          Total_Enrollments: 30,
+          Avg_Instructor_Score: 4.3,
+          Total_Sessions: 31,
+          Revenue_Status: "Yellow",
+          Performance_Status: "Yellow",
+          Avg_Penjelasan: 4.44,
+          Avg_Penguasaan: 4.51,
+          Avg_Kualitas: 4.39,
+          Avg_Interaktivitas: 4.17,
+        },
+        {
+          Revenue_Rank: 5,
+          branch: "Bandung",
+          Total_Revenue: 79813013,
+          Total_Enrollments: 27,
+          Avg_Instructor_Score: 4.22,
+          Total_Sessions: 31,
+          Revenue_Status: "Red",
+          Performance_Status: "Yellow",
+          Avg_Penjelasan: 4.42,
+          Avg_Penguasaan: 4.45,
+          Avg_Kualitas: 4.25,
+          Avg_Interaktivitas: 4.04,
+        },
+      ];
+
+      // Overall averages calculated in Python for KPI display
+      const overallAverages = {
+        avgRevenue: 84671033.8,
+        avgEnrollments: 28.2,
+        avgScore: 4.3,
+      };
+
+      let currentFilter = {
+        type: null, // 'Revenue' or 'Performance'
+        status: null, // 'Green', 'Yellow', or 'Red'
+      };
+
+      // Chart instances
+      let revenueChart = null;
+      let doughnutChart = null;
+      let radarChart = null; // New chart instance
+
+      // Utility color palette for the radar chart
+      const chartColors = [
+        { color: "#3b82f6", bg: "rgba(59, 130, 246, 0.2)", border: "#3b82f6" }, // Blue (Makassar)
+        { color: "#10b981", bg: "rgba(16, 185, 129, 0.2)", border: "#10b981" }, // Green (Jakarta)
+        { color: "#f59e0b", bg: "rgba(245, 158, 11, 0.2)", border: "#f59e0b" }, // Yellow (Medan)
+        { color: "#ef4444", bg: "rgba(239, 68, 68, 0.2)", border: "#ef4444" }, // Red (Surakarta)
+        { color: "#8b5cf6", bg: "rgba(139, 92, 246, 0.2)", border: "#8b5cf6" }, // Violet (Bandung)
+      ];
+
+      // Helper function to format IDR currency
+      function formatIDR(amount) {
+        return new Intl.NumberFormat("id-ID", {
+          style: "currency",
+          currency: "IDR",
+          minimumFractionDigits: 0,
+        }).format(amount);
+      }
+
+      // Helper function to get class based on status string
+      function getStatusClass(status) {
+        switch (status) {
+          case "Green":
+            return "status-green";
+          case "Yellow":
+            return "status-yellow";
+          case "Red":
+            return "status-red";
+          default:
+            return "bg-gray-100 text-gray-700";
+        }
+      }
+
+      // Helper function to get icon class based on status string
+      function getIconClass(status) {
+        switch (status) {
+          case "Green":
+            return "icon-green";
+          case "Yellow":
+            return "icon-yellow";
+          case "Red":
+            return "icon-red";
+          default:
+            return "bg-gray-400";
+        }
+      }
+
+      // --- CHART FUNCTIONS ---
+
+      function initializeRevenueBarChart() {
+        const ctx = document.getElementById("revenueBarChart").getContext("2d");
+
+        const branchLabels = dashboardData.map((d) => d.branch);
+        const revenueData = dashboardData.map((d) => d.Total_Revenue);
+        const avgRevenueLine = Array(dashboardData.length).fill(
+          overallAverages.avgRevenue
+        );
+        const barColors = dashboardData.map((d) => {
+          // Color the bar based on its Revenue Status
+          switch (d.Revenue_Status) {
+            case "Green":
+              return "#10b981"; // Green 500
+            case "Yellow":
+              return "#f59e0b"; // Yellow 500
+            case "Red":
+              return "#ef4444"; // Red 500
+            default:
+              return "#3b82f6"; // Blue 500
+          }
+        });
+
+        if (revenueChart) {
+          revenueChart.destroy();
+        }
+
+        revenueChart = new Chart(ctx, {
+          type: "bar",
+          data: {
+            labels: branchLabels,
+            datasets: [
+              {
+                label: "Total Revenue (IDR)",
+                data: revenueData,
+                backgroundColor: barColors,
+                borderColor: barColors.map((color) =>
+                  color.replace("500", "700")
+                ), // slightly darker border
+                borderWidth: 1,
+                borderRadius: 4,
+                order: 2, // Bars appear behind the line
+              },
+              {
+                type: "line",
+                label: "Rata-rata Global",
+                data: avgRevenueLine,
+                borderColor: "#3b82f6", // Blue 500
+                borderWidth: 2,
+                fill: false,
+                tension: 0.1,
+                pointRadius: 0,
+                order: 1, // Line appears on top
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                display: true,
+                position: "top",
+              },
+              tooltip: {
+                callbacks: {
+                  label: function (context) {
+                    let label = context.dataset.label || "";
+                    if (label) {
+                      label += ": ";
+                    }
+                    if (context.parsed.y !== null) {
+                      label += formatIDR(context.parsed.y)
+                        .replace("IDR", "")
+                        .trim();
+                    }
+                    return label;
+                  },
+                },
+              },
+            },
+            scales: {
+              y: {
+                beginAtZero: false,
+                title: {
+                  display: true,
+                  text: "Revenue (IDR Juta)",
+                  color: "#4b5563",
+                },
+                // Custom tick formatter for millions
+                ticks: {
+                  callback: function (value, index, values) {
+                    return (value / 1000000).toFixed(0) + " Juta";
+                  },
+                },
+              },
+              x: {
+                grid: {
+                  display: false,
+                },
+              },
+            },
+          },
+        });
+      }
+
+      function initializeDoughnutChart() {
+        const ctx = document
+          .getElementById("trafficLightDoughnut")
+          .getContext("2d");
+
+        const greenCount = dashboardData.filter(
+          (d) => d.Revenue_Status === "Green"
+        ).length;
+        const yellowCount = dashboardData.filter(
+          (d) => d.Revenue_Status === "Yellow"
+        ).length;
+        const redCount = dashboardData.filter(
+          (d) => d.Revenue_Status === "Red"
+        ).length;
+
+        const data = {
+          labels: ["Green", "Yellow", "Red"],
+          datasets: [
+            {
+              label: "Status Keuangan Cabang",
+              data: [greenCount, yellowCount, redCount],
+              backgroundColor: [
+                "#10b981", // Green 500
+                "#f59e0b", // Yellow 500
+                "#ef4444", // Red 500
+              ],
+              hoverOffset: 8,
+              borderWidth: 0,
+            },
+          ],
+        };
+
+        if (doughnutChart) {
+          doughnutChart.destroy();
+        }
+
+        doughnutChart = new Chart(ctx, {
+          type: "doughnut",
+          data: data,
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                display: false, // Use custom legend below chart
+              },
+              title: {
+                display: true,
+                text: "Total Cabang: " + dashboardData.length,
+                position: "bottom",
+                font: {
+                  size: 14,
+                  weight: "bold",
+                },
+                padding: {
+                  top: 10,
+                },
+              },
+              tooltip: {
+                callbacks: {
+                  label: function (context) {
+                    const label = context.label || "";
+                    const value = context.parsed;
+                    const total = context.dataset.data.reduce(
+                      (a, b) => a + b,
+                      0
+                    );
+                    const percentage = ((value / total) * 100).toFixed(0) + "%";
+                    return `${label}: ${value} Cabang (${percentage})`;
+                  },
+                },
+              },
+            },
+          },
+        });
+      }
+
+      function initializeInstructorRadarChart() {
+        const ctx = document
+          .getElementById("instructorRadarChart")
+          .getContext("2d");
+        const labels = [
+          "Penjelasan",
+          "Penguasaan Materi",
+          "Kualitas Konten",
+          "Interaktivitas",
+        ];
+
+        const datasets = dashboardData.map((d, index) => {
+          const color = chartColors[index % chartColors.length];
+          return {
+            label: d.branch,
+            data: [
+              d.Avg_Penjelasan,
+              d.Avg_Penguasaan,
+              d.Avg_Kualitas,
+              d.Avg_Interaktivitas,
+            ],
+            backgroundColor: color.bg,
+            borderColor: color.border,
+            pointBackgroundColor: color.border,
+            pointBorderColor: "#fff",
+            pointHoverBackgroundColor: "#fff",
+            pointHoverBorderColor: color.border,
+            borderWidth: 2,
+            fill: true,
+          };
+        });
+
+        if (radarChart) {
+          radarChart.destroy();
+        }
+
+        radarChart = new Chart(ctx, {
+          type: "radar",
+          data: {
+            labels: labels,
+            datasets: datasets,
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                position: "top",
+                labels: {
+                  usePointStyle: true,
+                  padding: 20,
+                },
+              },
+              tooltip: {
+                callbacks: {
+                  label: function (context) {
+                    return `${context.dataset.label}: ${context.formattedValue} / 5.0`;
+                  },
+                },
+              },
+            },
+            scales: {
+              r: {
+                angleLines: {
+                  display: true,
+                },
+                suggestedMin: 3.5, // Start slightly higher for better visual comparison
+                suggestedMax: 5.5, // Max score is 5.0, add buffer
+                ticks: {
+                  backdropColor: "rgba(240, 240, 240, 0.8)",
+                  stepSize: 0.5,
+                  color: "#4b5563",
+                },
+                pointLabels: {
+                  font: {
+                    size: 14,
+                    weight: "bold",
+                  },
+                  color: "#1f2937",
+                },
+              },
+            },
+          },
+        });
+      }
+
+      // --- RENDER FUNCTIONS ---
+
+      function renderKPISummary() {
+        const container = document.getElementById("kpi-summary");
+        container.innerHTML = `
+                <!-- Total Revenue -->
+                <div class="bg-white p-6 rounded-xl shadow-md border-b-4 border-blue-500">
+                    <p class="text-sm font-medium text-gray-500">Total Revenue Seluruh Cabang</p>
+                    <p class="text-3xl font-bold text-gray-800 mt-1">${formatIDR(
+                      dashboardData.reduce(
+                        (sum, item) => sum + item.Total_Revenue,
+                        0
+                      )
+                    )}</p>
+                    <p class="text-xs text-gray-400 mt-2">Rata-rata Cabang: ${formatIDR(
+                      overallAverages.avgRevenue
+                    )}</p>
+                </div>
+                <!-- Total Enrollment -->
+                <div class="bg-white p-6 rounded-xl shadow-md border-b-4 border-green-500">
+                    <p class="text-sm font-medium text-gray-500">Total Enrollment (Kuantitas)</p>
+                    <p class="text-3xl font-bold text-gray-800 mt-1">${dashboardData.reduce(
+                      (sum, item) => sum + item.Total_Enrollments,
+                      0
+                    )}</p>
+                    <p class="text-xs text-gray-400 mt-2">Rata-rata Cabang: ${overallAverages.avgEnrollments.toFixed(
+                      1
+                    )}</p>
+                </div>
+                <!-- Average Instructor Score -->
+                <div class="bg-white p-6 rounded-xl shadow-md border-b-4 border-yellow-500">
+                    <p class="text-sm font-medium text-gray-500">Rata-rata Inst. Score Global (5 Dimensi)</p>
+                    <p class="text-3xl font-bold text-gray-800 mt-1">${overallAverages.avgScore.toFixed(
+                      2
+                    )} / 5.0</p>
+                    <p class="text-xs text-gray-400 mt-2">Target Optimal: 4.5+ (Lihat Radar Chart)</p>
+                </div>
+                <!-- Total Sessions -->
+                <div class="bg-white p-6 rounded-xl shadow-md border-b-4 border-red-500">
+                    <p class="text-sm font-medium text-gray-500">Total Sesi Diadakan</p>
+                    <p class="text-3xl font-bold text-gray-800 mt-1">${dashboardData.reduce(
+                      (sum, item) => sum + item.Total_Sessions,
+                      0
+                    )}</p>
+                    <p class="text-xs text-gray-400 mt-2">Setiap cabang mengadakan 31 sesi.</p>
+                </div>
+            `;
+      }
+
+      function renderTrafficLightFilters() {
+        const container = document.getElementById("traffic-light-filters");
+        container.innerHTML = `
+                ${createFilterCard(
+                  "Revenue",
+                  "Green",
+                  "Status Keuangan Optimal (Revenue $\\geq$ Rata-rata)"
+                )}
+                ${createFilterCard(
+                  "Revenue",
+                  "Yellow",
+                  "Status Keuangan Warning (Revenue $\\geq$ 90% Rata-rata)"
+                )}
+                ${createFilterCard(
+                  "Revenue",
+                  "Red",
+                  "Status Keuangan Kritis (Revenue $<$ 90% Rata-rata)"
+                )}
+
+                ${createFilterCard(
+                  "Performance",
+                  "Green",
+                  "Status Performa Excellent (Score $\\geq$ 4.5)"
+                )}
+                ${createFilterCard(
+                  "Performance",
+                  "Yellow",
+                  "Status Performa Good (Score $\\geq$ 4.0 & $<$ 4.5)"
+                )}
+                ${createFilterCard(
+                  "Performance",
+                  "Red",
+                  "Status Performa Kritis (Score $<$ 4.0)"
+                )}
+            `;
+      }
+
+      function createFilterCard(type, status, description) {
+        const count = dashboardData.filter(
+          (d) => d[`${type}_Status`] === status
+        ).length;
+        const statusClass = getStatusClass(status);
+        const title = `${
+          type === "Revenue" ? "Keuangan" : "Performa"
+        } ${status}`;
+        const isActive =
+          currentFilter.type === type && currentFilter.status === status
+            ? "active"
+            : "";
+
+        return `
+                <div id="filter-card-${type}-${status}" class="interactive-card p-4 rounded-xl shadow-lg transition duration-300 ${statusClass} ${isActive}"
+                     onclick="applyFilter('${type}', '${status}')">
+                    <div class="flex items-center justify-between">
+                        <p class="text-lg font-semibold">${title}</p>
+                        <span class="text-3xl font-extrabold">${count}</span>
+                    </div>
+                    <p class="text-sm mt-1 opacity-90">${description}</p>
+                    <p class="text-xs mt-2 font-medium">Cabang Terdampak: ${count}</p>
+                </div>
+            `;
+      }
+
+      function renderBranchRankingTable(filteredData = dashboardData) {
+        const tbody = document.getElementById("branch-ranking-body");
+        tbody.innerHTML = ""; // Clear previous rows
+
+        if (filteredData.length === 0) {
+          tbody.innerHTML = `
+                    <tr>
+                        <td colspan="7" class="px-6 py-4 text-center text-gray-500">
+                            Tidak ada cabang yang cocok dengan filter.
+                        </td>
+                    </tr>
+                `;
+          return;
+        }
+
+        filteredData.forEach((item) => {
+          const revenueClass = getStatusClass(item.Revenue_Status);
+          const perfClass = getStatusClass(item.Performance_Status);
+
+          const row = document.createElement("tr");
+          row.className = "hover:bg-gray-50";
+          row.innerHTML = `
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${
+                      item.Revenue_Rank
+                    }</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold text-blue-700">${
+                      item.branch
+                    }</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${formatIDR(
+                      item.Total_Revenue
+                    )}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${
+                      item.Total_Enrollments
+                    }</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${item.Avg_Instructor_Score.toFixed(
+                      2
+                    )}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${revenueClass
+                          .replace("status-", "bg-")
+                          .replace("100", "200")} ${revenueClass
+            .replace("status-", "text-")
+            .replace("100", "800")}">
+                            <span class="status-icon ${getIconClass(
+                              item.Revenue_Status
+                            )}"></span>
+                            ${item.Revenue_Status}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${perfClass
+                          .replace("status-", "bg-")
+                          .replace("100", "200")} ${perfClass
+            .replace("status-", "text-")
+            .replace("100", "800")}">
+                            <span class="status-icon ${getIconClass(
+                              item.Performance_Status
+                            )}"></span>
+                            ${item.Performance_Status}
+                        </span>
+                    </td>
+                `;
+          tbody.appendChild(row);
+        });
+      }
+
+      // --- INTERACTION LOGIC ---
+
+      function updateActiveFilterClass() {
+        document
+          .querySelectorAll(".interactive-card")
+          .forEach((card) => card.classList.remove("active"));
+        if (currentFilter.type && currentFilter.status) {
+          const cardId = `filter-card-${currentFilter.type}-${currentFilter.status}`;
+          const activeCard = document.getElementById(cardId);
+          if (activeCard) {
+            activeCard.classList.add("active");
+          }
+        }
+      }
+
+      function applyFilter(type, status) {
+        // Toggle logic: if the same filter is clicked, reset
+        if (currentFilter.type === type && currentFilter.status === status) {
+          resetFilters();
+          return;
+        }
+
+        currentFilter.type = type;
+        currentFilter.status = status;
+
+        const filteredData = dashboardData.filter((item) => {
+          const statusKey = `${type}_Status`;
+          return item[statusKey] === status;
+        });
+
+        renderBranchRankingTable(filteredData);
+        updateActiveFilterClass();
+      }
+
+      function resetFilters() {
+        currentFilter.type = null;
+        currentFilter.status = null;
+        renderBranchRankingTable(dashboardData);
+        updateActiveFilterClass();
+      }
+
+      // --- INITIALIZATION ---
+      window.onload = function () {
+        renderKPISummary();
+        renderTrafficLightFilters();
+        renderBranchRankingTable();
+
+        // Initialize Charts
+        initializeInstructorRadarChart(); // New Radar Chart
+        initializeDoughnutChart();
+        initializeRevenueBarChart(); // Moved to be initialized last
+      };
+    </script>
+  </body>
+</html>
