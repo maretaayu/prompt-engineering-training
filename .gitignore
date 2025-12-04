@@ -1,0 +1,6 @@
+node_modules/
+.tmp-home/
+
+# Keep only state.json from Netlify CLI metadata
+.netlify/*
+!.netlify/state.json
