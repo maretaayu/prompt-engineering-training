@@ -1,0 +1,9 @@
+week_start,plan,cohort,responses,avg_sentiment,confidence_gain_pct,completed_assignment_pct,highlight_quote,blocker_summary,follow_up_interest_pct,branch
+2024-11-01,Premium,Cohort Alpha,45,0.69,63.15,90.40,"Instrukturnya bikin prompt terasa simpel, langsung bisa dipakai.",Koneksi beberapa peserta drop pas sesi malam.,61.51,Surakarta
+2024-11-01,Elite,Cohort Alpha,30,0.95,69.05,100.00,Mentor bantu debugging use case sampai beres.,Jadwal konsultasi bentrok jam kantor.,71.36,Surakarta
+2024-11-08,Premium,Cohort Bravo,51,0.69,62.58,100.00,Breakout room bikin kami kompak nyusun SOP prompt.,Contoh industri non-edtech masih kurang.,55.87,Surakarta
+2024-11-08,Elite,Cohort Bravo,32,0.92,56.74,95.28,Toolkit evaluasi prompt sangat membantu tim QA.,Perlu template otomatisasi tambahan.,71.83,Surakarta
+2024-11-15,Premium,Cohort Charlie,55,0.83,50.40,100.00,Mini project bikin kami kebayang workflow harian.,Pace terasa cepat di sesi malam.,49.00,Surakarta
+2024-11-15,Elite,Cohort Charlie,34,0.88,65.76,88.85,Pendampingan mentor tiap kelompok bikin pede.,Minta ringkasan harian untuk catatan tim.,69.47,Surakarta
+2024-11-22,Premium,Cohort Delta,68,0.85,55.29,100.00,"Materi mudah diakses, langsung bisa dibagi ke divisi lain.",Latihan multi-turn masih minim.,50.31,Surakarta
+2024-11-22,Elite,Cohort Delta,32,0.96,77.89,87.92,Review output per sesi bantu refine deliverable.,Perlu opsi jadwal demo tools alternatif.,66.31,Surakarta

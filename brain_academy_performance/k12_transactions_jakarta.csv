@@ -1,0 +1,32 @@
+date,order_id,product,plan,price_idr,quantity,total_idr,channel,branch
+2024-11-01,BAO-2401,Brain Academy Online,Premium,2095678,1,2386223,Marketplace,Jakarta
+2024-11-01,BAO-2402,Brain Academy Online,Elite,3845435,1,3632467,Direct Sales,Jakarta
+2024-11-02,BAO-2403,Brain Academy Online,Premium,1850609,2,4236526,Marketplace,Jakarta
+2024-11-03,BAO-2404,Brain Academy Online,Elite,4370618,1,4346177,Referral,Jakarta
+2024-11-04,BAO-2405,Brain Academy Online,Premium,2417797,1,2226117,Direct Sales,Jakarta
+2024-11-05,BAO-2406,Brain Academy Online,Premium,2346660,3,6767908,Marketplace,Jakarta
+2024-11-06,BAO-2407,Brain Academy Online,Elite,4929348,2,7962265,Direct Sales,Jakarta
+2024-11-07,BAO-2408,Brain Academy Online,Premium,1829309,1,1905182,Marketplace,Jakarta
+2024-11-08,BAO-2409,Brain Academy Online,Elite,4691203,1,4886216,Direct Sales,Jakarta
+2024-11-09,BAO-2410,Brain Academy Online,Premium,2309563,2,3286115,Referral,Jakarta
+2024-11-10,BAO-2411,Brain Academy Online,Premium,1797629,1,1650747,Marketplace,Jakarta
+2024-11-11,BAO-2412,Brain Academy Online,Elite,3061182,1,3259378,Direct Sales,Jakarta
+2024-11-12,BAO-2413,Brain Academy Online,Premium,2109574,2,4871152,Marketplace,Jakarta
+2024-11-13,BAO-2414,Brain Academy Online,Elite,4245361,1,4237891,Referral,Jakarta
+2024-11-14,BAO-2415,Brain Academy Online,Premium,1876231,1,2292654,Direct Sales,Jakarta
+2024-11-15,BAO-2416,Brain Academy Online,Premium,1774770,2,3538145,Marketplace,Jakarta
+2024-11-16,BAO-2417,Brain Academy Online,Elite,4039896,1,4061663,Marketplace,Jakarta
+2024-11-17,BAO-2418,Brain Academy Online,Premium,2096701,1,2169721,Direct Sales,Jakarta
+2024-11-18,BAO-2419,Brain Academy Online,Elite,3809323,2,7492127,Referral,Jakarta
+2024-11-19,BAO-2420,Brain Academy Online,Premium,1968746,1,1841145,Marketplace,Jakarta
+2024-11-20,BAO-2421,Brain Academy Online,Premium,2205491,3,7115330,Marketplace,Jakarta
+2024-11-21,BAO-2422,Brain Academy Online,Elite,3394318,1,3250486,Direct Sales,Jakarta
+2024-11-22,BAO-2423,Brain Academy Online,Premium,2303927,1,1857126,Referral,Jakarta
+2024-11-23,BAO-2424,Brain Academy Online,Elite,4932129,1,4865841,Marketplace,Jakarta
+2024-11-24,BAO-2425,Brain Academy Online,Premium,1997525,2,3677350,Direct Sales,Jakarta
+2024-11-25,BAO-2426,Brain Academy Online,Premium,2166247,1,2240004,Marketplace,Jakarta
+2024-11-26,BAO-2427,Brain Academy Online,Elite,3318021,2,9618063,Direct Sales,Jakarta
+2024-11-27,BAO-2428,Brain Academy Online,Premium,1586627,1,2393287,Referral,Jakarta
+2024-11-28,BAO-2429,Brain Academy Online,Premium,1921893,2,4089101,Marketplace,Jakarta
+2024-11-29,BAO-2430,Brain Academy Online,Elite,4329428,1,4657504,Direct Sales,Jakarta
+2024-11-30,BAO-2431,Brain Academy Online,Premium,2342619,1,2449033,Marketplace,Jakarta

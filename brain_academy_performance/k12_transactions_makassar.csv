@@ -1,0 +1,32 @@
+date,order_id,product,plan,price_idr,quantity,total_idr,channel,branch
+2024-11-01,BAO-2401,Brain Academy Online,Premium,2435041,1,2295653,Marketplace,Makassar
+2024-11-01,BAO-2402,Brain Academy Online,Elite,4623133,1,3654681,Direct Sales,Makassar
+2024-11-02,BAO-2403,Brain Academy Online,Premium,2462343,2,3407750,Marketplace,Makassar
+2024-11-03,BAO-2404,Brain Academy Online,Elite,4831635,1,3291627,Referral,Makassar
+2024-11-04,BAO-2405,Brain Academy Online,Premium,1561276,1,1901604,Direct Sales,Makassar
+2024-11-05,BAO-2406,Brain Academy Online,Premium,1674795,3,4628664,Marketplace,Makassar
+2024-11-06,BAO-2407,Brain Academy Online,Elite,4990885,2,9808466,Direct Sales,Makassar
+2024-11-07,BAO-2408,Brain Academy Online,Premium,2388416,1,2395911,Marketplace,Makassar
+2024-11-08,BAO-2409,Brain Academy Online,Elite,4107928,1,3198658,Direct Sales,Makassar
+2024-11-09,BAO-2410,Brain Academy Online,Premium,2357262,2,3343182,Referral,Makassar
+2024-11-10,BAO-2411,Brain Academy Online,Premium,1657958,1,1666252,Marketplace,Makassar
+2024-11-11,BAO-2412,Brain Academy Online,Elite,4072976,1,3673364,Direct Sales,Makassar
+2024-11-12,BAO-2413,Brain Academy Online,Premium,1633892,2,4248407,Marketplace,Makassar
+2024-11-13,BAO-2414,Brain Academy Online,Elite,3351554,1,4895421,Referral,Makassar
+2024-11-14,BAO-2415,Brain Academy Online,Premium,2321004,1,1701946,Direct Sales,Makassar
+2024-11-15,BAO-2416,Brain Academy Online,Premium,1743452,2,4718033,Marketplace,Makassar
+2024-11-16,BAO-2417,Brain Academy Online,Elite,4384006,1,3272286,Marketplace,Makassar
+2024-11-17,BAO-2418,Brain Academy Online,Premium,1970336,1,1929521,Direct Sales,Makassar
+2024-11-18,BAO-2419,Brain Academy Online,Elite,3478640,2,7685521,Referral,Makassar
+2024-11-19,BAO-2420,Brain Academy Online,Premium,2166253,1,2345552,Marketplace,Makassar
+2024-11-20,BAO-2421,Brain Academy Online,Premium,1518450,2,5803873,Marketplace,Makassar
+2024-11-21,BAO-2422,Brain Academy Online,Elite,4257007,1,4558905,Direct Sales,Makassar
+2024-11-22,BAO-2423,Brain Academy Online,Premium,1636322,1,1658810,Referral,Makassar
+2024-11-23,BAO-2424,Brain Academy Online,Elite,3926852,1,3607824,Marketplace,Makassar
+2024-11-24,BAO-2425,Brain Academy Online,Premium,1699077,2,4184241,Direct Sales,Makassar
+2024-11-25,BAO-2426,Brain Academy Online,Premium,1715663,1,2211587,Marketplace,Makassar
+2024-11-26,BAO-2427,Brain Academy Online,Elite,3788932,2,6917429,Direct Sales,Makassar
+2024-11-27,BAO-2428,Brain Academy Online,Premium,1564160,1,2384828,Referral,Makassar
+2024-11-28,BAO-2429,Brain Academy Online,Premium,1792157,2,4280776,Marketplace,Makassar
+2024-11-29,BAO-2430,Brain Academy Online,Elite,3378173,1,4687913,Direct Sales,Makassar
+2024-11-30,BAO-2431,Brain Academy Online,Premium,1831469,1,1832942,Marketplace,Makassar

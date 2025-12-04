@@ -1,0 +1,5 @@
+instructor_id,name,plan_focus,sessions_hosted,avg_penjelasan,avg_penguasaan,avg_kualitas,avg_interaktivitas,highlights,action_items,branch
+INS-01,Nadia Pratama,Premium,8,4.16,4.44,3.99,4.66,Mampu menjaga tempo dan memberi contoh mudah dipahami.,Tambah sesi belajar mandiri untuk peserta yang lambat. ,Jakarta
+INS-02,Rio Mahendra,Elite,10,4.64,5.29,5.00,4.15,Pendampingan intens dan cepat merespons debugging prompt.,Rencanakan dokumentasi best practice untuk dibagikan tiap akhir sesi. ,Jakarta
+INS-03,Maya Lestari,Hybrid,7,4.47,4.30,4.35,3.97,Ahli menjembatani kebutuhan product dan konten.,Perbanyak ice breaker agar kelas malam lebih aktif. ,Jakarta
+INS-04,Davin Surya,Premium,6,4.42,3.74,4.16,3.81,Materi terstruktur rapi dan banyak hands-on.,Perlu peningkatan koordinasi dengan co-host untuk sesi Q&A. ,Jakarta

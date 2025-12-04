@@ -1,0 +1,32 @@
+date,order_id,product,plan,price_idr,quantity,total_idr,channel,branch
+2024-11-01,BAO-2401,Brain Academy Online,Premium,1775459,1,2061684,Marketplace,Surakarta
+2024-11-01,BAO-2402,Brain Academy Online,Elite,3884055,1,4959862,Direct Sales,Surakarta
+2024-11-02,BAO-2403,Brain Academy Online,Premium,2434384,2,4539780,Marketplace,Surakarta
+2024-11-03,BAO-2404,Brain Academy Online,Elite,4329902,1,3449135,Referral,Surakarta
+2024-11-04,BAO-2405,Brain Academy Online,Premium,2263499,1,2467061,Direct Sales,Surakarta
+2024-11-05,BAO-2406,Brain Academy Online,Premium,2421096,4,4596776,Marketplace,Surakarta
+2024-11-06,BAO-2407,Brain Academy Online,Elite,4163598,2,7958407,Direct Sales,Surakarta
+2024-11-07,BAO-2408,Brain Academy Online,Premium,2468354,1,2456064,Marketplace,Surakarta
+2024-11-08,BAO-2409,Brain Academy Online,Elite,4435397,1,4610919,Direct Sales,Surakarta
+2024-11-09,BAO-2410,Brain Academy Online,Premium,1843318,2,4458176,Referral,Surakarta
+2024-11-10,BAO-2411,Brain Academy Online,Premium,2430781,1,1687716,Marketplace,Surakarta
+2024-11-11,BAO-2412,Brain Academy Online,Elite,4846640,1,4082204,Direct Sales,Surakarta
+2024-11-12,BAO-2413,Brain Academy Online,Premium,2431469,2,3376218,Marketplace,Surakarta
+2024-11-13,BAO-2414,Brain Academy Online,Elite,3559161,1,3691816,Referral,Surakarta
+2024-11-14,BAO-2415,Brain Academy Online,Premium,2195529,1,2280622,Direct Sales,Surakarta
+2024-11-15,BAO-2416,Brain Academy Online,Premium,1975841,2,3278393,Marketplace,Surakarta
+2024-11-16,BAO-2417,Brain Academy Online,Elite,3307824,1,3844341,Marketplace,Surakarta
+2024-11-17,BAO-2418,Brain Academy Online,Premium,1576695,1,1682596,Direct Sales,Surakarta
+2024-11-18,BAO-2419,Brain Academy Online,Elite,4542013,2,6350152,Referral,Surakarta
+2024-11-19,BAO-2420,Brain Academy Online,Premium,2047130,1,1959894,Marketplace,Surakarta
+2024-11-20,BAO-2421,Brain Academy Online,Premium,2359501,4,6060600,Marketplace,Surakarta
+2024-11-21,BAO-2422,Brain Academy Online,Elite,4870508,1,3626895,Direct Sales,Surakarta
+2024-11-22,BAO-2423,Brain Academy Online,Premium,2090581,1,1788335,Referral,Surakarta
+2024-11-23,BAO-2424,Brain Academy Online,Elite,3882960,1,3321041,Marketplace,Surakarta
+2024-11-24,BAO-2425,Brain Academy Online,Premium,1969395,2,4314150,Direct Sales,Surakarta
+2024-11-25,BAO-2426,Brain Academy Online,Premium,2149886,1,2038371,Marketplace,Surakarta
+2024-11-26,BAO-2427,Brain Academy Online,Elite,3258925,2,7419283,Direct Sales,Surakarta
+2024-11-27,BAO-2428,Brain Academy Online,Premium,2182129,1,2422192,Referral,Surakarta
+2024-11-28,BAO-2429,Brain Academy Online,Premium,2391534,2,4725280,Marketplace,Surakarta
+2024-11-29,BAO-2430,Brain Academy Online,Elite,3387694,1,4329310,Direct Sales,Surakarta
+2024-11-30,BAO-2431,Brain Academy Online,Premium,2348350,1,1817578,Marketplace,Surakarta

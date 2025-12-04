@@ -1,0 +1,9 @@
+week_start,plan,cohort,responses,avg_sentiment,confidence_gain_pct,completed_assignment_pct,highlight_quote,blocker_summary,follow_up_interest_pct,branch
+2024-11-01,Premium,Cohort Alpha,41,0.75,70.67,95.61,"Instrukturnya bikin prompt terasa simpel, langsung bisa dipakai.",Koneksi beberapa peserta drop pas sesi malam.,61.01,Medan
+2024-11-01,Elite,Cohort Alpha,26,0.91,66.61,99.74,Mentor bantu debugging use case sampai beres.,Jadwal konsultasi bentrok jam kantor.,65.66,Medan
+2024-11-08,Premium,Cohort Bravo,56,0.67,57.64,100.00,Breakout room bikin kami kompak nyusun SOP prompt.,Contoh industri non-edtech masih kurang.,42.92,Medan
+2024-11-08,Elite,Cohort Bravo,25,0.92,64.45,96.43,Toolkit evaluasi prompt sangat membantu tim QA.,Perlu template otomatisasi tambahan.,63.84,Medan
+2024-11-15,Premium,Cohort Charlie,58,0.62,60.42,97.05,Mini project bikin kami kebayang workflow harian.,Pace terasa cepat di sesi malam.,52.27,Medan
+2024-11-15,Elite,Cohort Charlie,34,0.83,63.59,100.00,Pendampingan mentor tiap kelompok bikin pede.,Minta ringkasan harian untuk catatan tim.,71.41,Medan
+2024-11-22,Premium,Cohort Delta,61,0.66,65.71,86.27,"Materi mudah diakses, langsung bisa dibagi ke divisi lain.",Latihan multi-turn masih minim.,51.95,Medan
+2024-11-22,Elite,Cohort Delta,28,0.77,65.60,95.74,Review output per sesi bantu refine deliverable.,Perlu opsi jadwal demo tools alternatif.,80.95,Medan

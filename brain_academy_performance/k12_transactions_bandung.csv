@@ -1,0 +1,32 @@
+date,order_id,product,plan,price_idr,quantity,total_idr,channel,branch
+2024-11-01,BAO-2401,Brain Academy Online,Premium,2074767,1,2250583,Marketplace,Bandung
+2024-11-01,BAO-2402,Brain Academy Online,Elite,4657630,1,3038214,Direct Sales,Bandung
+2024-11-02,BAO-2403,Brain Academy Online,Premium,2257638,2,3993140,Marketplace,Bandung
+2024-11-03,BAO-2404,Brain Academy Online,Elite,3087351,1,3407409,Referral,Bandung
+2024-11-04,BAO-2405,Brain Academy Online,Premium,1956593,1,1634061,Direct Sales,Bandung
+2024-11-05,BAO-2406,Brain Academy Online,Premium,1698006,3,4755455,Marketplace,Bandung
+2024-11-06,BAO-2407,Brain Academy Online,Elite,3003199,2,7274283,Direct Sales,Bandung
+2024-11-07,BAO-2408,Brain Academy Online,Premium,2497878,1,2336182,Marketplace,Bandung
+2024-11-08,BAO-2409,Brain Academy Online,Elite,3469136,1,4195153,Direct Sales,Bandung
+2024-11-09,BAO-2410,Brain Academy Online,Premium,2419102,2,3128801,Referral,Bandung
+2024-11-10,BAO-2411,Brain Academy Online,Premium,2463915,1,1792749,Marketplace,Bandung
+2024-11-11,BAO-2412,Brain Academy Online,Elite,4347449,1,3821300,Direct Sales,Bandung
+2024-11-12,BAO-2413,Brain Academy Online,Premium,2354007,2,4848676,Marketplace,Bandung
+2024-11-13,BAO-2414,Brain Academy Online,Elite,4578815,1,4695591,Referral,Bandung
+2024-11-14,BAO-2415,Brain Academy Online,Premium,2020394,1,2183520,Direct Sales,Bandung
+2024-11-15,BAO-2416,Brain Academy Online,Premium,1801968,2,4868781,Marketplace,Bandung
+2024-11-16,BAO-2417,Brain Academy Online,Elite,4242053,1,3210309,Marketplace,Bandung
+2024-11-17,BAO-2418,Brain Academy Online,Premium,2342143,1,1723224,Direct Sales,Bandung
+2024-11-18,BAO-2419,Brain Academy Online,Elite,3903112,2,8181152,Referral,Bandung
+2024-11-19,BAO-2420,Brain Academy Online,Premium,1574192,1,2121879,Marketplace,Bandung
+2024-11-20,BAO-2421,Brain Academy Online,Premium,2198733,3,5288796,Marketplace,Bandung
+2024-11-21,BAO-2422,Brain Academy Online,Elite,3831271,1,3296271,Direct Sales,Bandung
+2024-11-22,BAO-2423,Brain Academy Online,Premium,1682829,1,2107364,Referral,Bandung
+2024-11-23,BAO-2424,Brain Academy Online,Elite,3345236,1,4164255,Marketplace,Bandung
+2024-11-24,BAO-2425,Brain Academy Online,Premium,1634318,2,4591140,Direct Sales,Bandung
+2024-11-25,BAO-2426,Brain Academy Online,Premium,2333951,1,1857261,Marketplace,Bandung
+2024-11-26,BAO-2427,Brain Academy Online,Elite,4124843,2,9460663,Direct Sales,Bandung
+2024-11-27,BAO-2428,Brain Academy Online,Premium,1507370,1,1930338,Referral,Bandung
+2024-11-28,BAO-2429,Brain Academy Online,Premium,1523559,2,4205922,Marketplace,Bandung
+2024-11-29,BAO-2430,Brain Academy Online,Elite,3343917,1,4157878,Direct Sales,Bandung
+2024-11-30,BAO-2431,Brain Academy Online,Premium,2424896,1,1502557,Marketplace,Bandung
