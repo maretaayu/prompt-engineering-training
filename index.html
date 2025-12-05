@@ -90,9 +90,9 @@
       }
 
       .cards {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-        gap: 1.8rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
       }
 
       .card {
@@ -191,6 +191,22 @@
       </div>
 
       <section class="cards" aria-label="Navigasi Utama">
+        <article class="card">
+          <h3>Recording Sesi</h3>
+          <p>
+            Rekaman lengkap workshop untuk peserta yang ingin mengulang materi atau mengejar ketertinggalan.
+          </p>
+          <div class="card-links">
+            <a
+              href="https://drive.google.com/file/d/1p3c8jzXGhL6kGT1qBzvuf_yqJFi6q45D/view?usp=sharing"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Tonton rekaman →
+              <span>Video Google Drive</span>
+            </a>
+          </div>
+        </article>
         <article class="card">
           <h3>Deck & Materi Utama</h3>
           <p>
